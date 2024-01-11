@@ -14,6 +14,6 @@ st.set_page_config(
     menu_items={
         'Get Help': 'https://github.com/sbdeveloper90/python-streamlit-api/wiki',
         'Report a bug': "https://github.com/sbdeveloper90/python-streamlit-api/issues",
-        'About': "# This is a header. This is an *extremely* cool app!"
+        'About': "# Python • Streamlit\n### This is an *extremely* cool app!"
     }
 )

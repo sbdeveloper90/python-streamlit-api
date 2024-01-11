@@ -1,9 +1,5 @@
 import streamlit as st
 import streamlit.components.v1 as components
-import requests as rq
-import json
-import pandas as pd
-import numpy as np
 
 
 st.set_page_config(
@@ -14,14 +10,11 @@ st.set_page_config(
     menu_items={
         'Get Help': 'https://github.com/sbdeveloper90/python-streamlit-api/wiki',
         'Report a bug': "https://github.com/sbdeveloper90/python-streamlit-api/issues",
-        'About': "# This is a header. This is an *extremely* cool app!"
+        'About': "# Python • Streamlit\n### This is an *extremely* cool app!"
     }
 )
 
 # components.iframe("https://my.spline.design/streamlitlogo-eaa8c1fc0230ef4c8fc84a2b482f4f6d/", height=200)
-
-# st.title(':green[Python Streamlit API & Data Visualization]')
-# st.subheader("Python Streamlit app for API calls and data visualization")
 
 st.markdown('<h1 style="color:#3DD56D; text-align:center">Python Streamlit API & Data Visualization</h1>', unsafe_allow_html=True)
 st.markdown('<h3 style="text-align:center">Python Streamlit example app for API calls and data visualization</h3>', unsafe_allow_html=True)
