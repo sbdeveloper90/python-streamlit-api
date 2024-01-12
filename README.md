@@ -14,6 +14,8 @@ Python Streamlit example app for API calls and data visualization.
 - [Pandas Docs](https://pandas.pydata.org/docs/reference/index.html#api)
 - [Python API Docs](https://realpython.com/python-api/)
 - [LaTeX Supported Functions](https://katex.org/docs/supported.html)
+- [OpenMeteo API Docs - Weather Forecast](https://open-meteo.com/en/docs/)
+- [OpenMeteo API Docs - Geocoding](https://open-meteo.com/en/docs/geocoding-api)
 
 ### Datasets
 - [Google Dataset Search](https://datasetsearch.research.google.com/)
@@ -72,65 +74,4 @@ else:
         case _:
             prPurple("----------- STATUS CODE -----------")
             prRed("Code " + response.status_code)
-```
-
-```python
-f = open('filedidati.json')
-data = json.load(f)
-f.close()
-dataJSON = pd.DataFrame(data['results'])
-st.help(dataJSON)
-```
-
-```python
-codice_zona_unique = dataJSON['codice_zona'].unique()
-filtered_df = dataJSON.query("codice_zona == 'quartiere_san_donato'").filter(items=['giorno', 'ora', 'affollamento_medio'])
-filtered_df['combined_date'] = filtered_df['giorno'] + "-" + filtered_df['ora'].astype(str)
-st.dataframe(data=dataJSON)
-st.dataframe(data=dataJSON['geo_point_2d'].values[:1])
-st.dataframe(data=codice_zona_unique)
-st.dataframe(data=filtered_df)
-st.line_chart(data=filtered_df, x='combined_date', y='affollamento_medio')
-```
-
-```python
-st.title('Generatore di URL personalizzati')
-# Aggiungi i campi del form
-with st.form(key='my_form'):
-    name = st.text_input(label='Nome')
-    age = st.number_input(label='Età')
-    city = st.text_input(label='Città')
-    submit_button = st.form_submit_button(label='Genera URL')
-# Genera l'URL personalizzato
-if submit_button:
-    url = f'https://api.example.com?name={name}&age={age}&city={city}'
-    st.write(f'Ecco il tuo URL personalizzato: {url}')
-```
-
-```text
-To specify your own custom output format, use the special %-notation:
-
-    c    Weather condition,
-    C    Weather condition textual name,
-    x    Weather condition, plain-text symbol,
-    h    Humidity,
-    t    Temperature (Actual),
-    f    Temperature (Feels Like),
-    w    Wind,
-    l    Location,
-    m    Moon phase 🌑🌒🌓🌔🌕🌖🌗🌘,
-    M    Moon day,
-    p    Precipitation (mm/3 hours),
-    P    Pressure (hPa),
-    u    UV index (1-12),
-
-    D    Dawn*,
-    S    Sunrise*,
-    z    Zenith*,
-    s    Sunset*,
-    d    Dusk*,
-    T    Current time*,
-    Z    Local timezone.
-
-(*times are shown in the local timezone)
 ```
