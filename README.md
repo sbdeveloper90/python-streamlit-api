@@ -19,6 +19,7 @@ Python Streamlit example app for API calls and data visualization.
 
 ### Datasets
 - [Google Dataset Search](https://datasetsearch.research.google.com/)
+- [dataset.xlsx](https://data.mendeley.com/datasets/n47ddcz9nr/1)
 
 ### Video Tutorials
 - [Streamlit Elements You Should Know About in 2023](https://www.youtube.com/watch?v=_Um12_OlGgw)

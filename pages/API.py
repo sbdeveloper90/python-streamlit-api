@@ -45,6 +45,11 @@ def get_weather_description(code: int) -> str:
     }
     return weather_codes.get(code, "Invalid code")
 
+def degToCompass(num):
+    val = int((num / 22.5) + .5)
+    arr = ["N","NNE","NE","ENE","E","ESE","SE","SSE","S","SSW","SW","WSW","W","WNW","NW","NNW"]
+    return arr[(val % 16)]
+
 
 st.set_page_config(
     page_title='Python • Streamlit | API',
@@ -57,6 +62,13 @@ st.set_page_config(
         'About': "# Python • Streamlit\n### This is an *extremely* cool app!"
     }
 )
+
+with st.sidebar:
+    st.title("Credits")
+    st.info("In this example it's used Python Requests with 🌤 [**Open-Meteo Weather API**](https://github.com/open-meteo/open-meteo) to find geocoding location and current meteo forecast.")
+    st.success("Find more [**here**](https://open-meteo.com/en/docs/)", icon="↗️")
+    st.success("License [**CC BY 4.0**](https://creativecommons.org/licenses/by/4.0/)", icon="↗️")
+    st.warning("The involved APIs are **only** used for testing and showing Streamlit features.")
 
 
 st.title(":green[Python API Form Calls]")
@@ -76,6 +88,8 @@ if submit_button:
         weather_api_call = rq.get(f'https://geocoding-api.open-meteo.com/v1/search?name={encoded_location}&count=1&language=it&format=json')
         if weather_api_call.status_code == 200:
             weather_json = weather_api_call.json()
+            st.info(f"Meteo response for **{location}**", icon="ℹ️")
+            st.info(f"Location at latitude: **{weather_json['results'][0]['latitude']}** and longitude: **{weather_json['results'][0]['longitude']}**", icon="ℹ️")
 
 
             ## Setup the Open-Meteo API client with cache and retry on error
@@ -113,22 +127,15 @@ if submit_button:
             current_weather_code = current.Variables(6).Value()
             current_wind_speed_10m = current.Variables(7).Value()
             current_wind_direction_10m = current.Variables(8).Value()
-
             # print(f"Current time {current.Time()}")
-            # print(f"Current temperature_2m {current_temperature_2m}")
-            # print(f"Current relative_humidity_2m {current_relative_humidity_2m}")
-            # print(f"Current is_day {current_is_day}")
-            # print(f"Current precipitation {current_precipitation}")
-            # print(f"Current rain {current_rain}")
-            # print(f"Current snowfall {current_snowfall}")
-            # print(f"Current weather_code {current_weather_code}")
-            # print(f"Current wind_speed_10m {current_wind_speed_10m}")
-            # print(f"Current wind_direction_10m {current_wind_direction_10m}")
+
             
+            meteo_df = pd.DataFrame({'Temperature (°C)': [current_temperature_2m], 'Relative Humidity (%)': [current_relative_humidity_2m], 'Weather Description': [get_weather_description(current_weather_code)], 'Wind Speed (km/h)': [current_wind_speed_10m], 'Wind Direction': [degToCompass(current_wind_direction_10m)], 'Elevation (m asl)': [response.Elevation()]})
+            st.dataframe(meteo_df, hide_index=True)
 
             map_df = pd.DataFrame({'lat': [weather_json['results'][0]['latitude']], 'lon': [weather_json['results'][0]['longitude']]})
             st.map(map_df, size=300, zoom=10)
         else:
-            st.text("Error retrieving LOCATION information.")
+            st.warning("Error retrieving LOCATION information.", icon="⚠️")
     else:
-        st.warning("Please fill input field.")
+        st.warning("Please fill input field.", icon="⚠️")
