@@ -36,3 +36,32 @@ st.markdown("For each year and each city, air quality data are: concentration an
 st.markdown("For each year and each city, mobility data are: the number of vehicles, motorbikes, trucks and tractors, divided by environmental classification (*i.e. Euro 0, Euro 1, Euro 2, Euro 3, Euro 4, Euro 5, Euro 6*) and by fuel type (*i.e. petrol, gasoil, liquified petroleum gas LPG, compressed natural gas CNG, hybrid and electric cars*); public transport offer and demand, divided by type (*i.e. wheel, rail and water*).")
 st.markdown("The number of inhabitants and the municipality surface are also provided for each year and each city.")
 st.divider()
+
+
+st.markdown("### Dataset Table")
+
+file_loc = 'dataset/dataset.xlsx'
+df_table = pd.read_excel(file_loc, usecols='B,C,D,H,L,BN', header=0)
+df_table['Year'] = df_table['Year'].astype('string')
+df_table['City'] = df_table['City'].astype('string')
+df_table['NO2 average'] = df_table['NO2 average'].astype('float')
+df_table['PM10 average'] = df_table['PM10 average'].astype('float')
+df_table['PM2.5 average'] = df_table['PM2.5 average'].astype('float')
+df_table['Methane cars'] = df_table['Methane cars'].astype('int')
+
+unique_year = df_table['Year'].unique()
+unique_city = df_table['City'].unique()
+column_headers = ['NO2 average', 'PM10 average', 'PM2.5 average', 'Methane cars']
+st.dataframe(df_table, use_container_width=True, hide_index=True)
+st.info('the 0 values in the table above are used for missing values.', icon='ℹ️')
+
+st.markdown("#")
+st.markdown("### Dataset Chart")
+
+selected_city = st.selectbox("Select City to plot", unique_city)
+selected_columns = st.multiselect("Select columns to plot", column_headers)
+st.markdown("#")
+if selected_columns:
+    st.line_chart(df_table.query(f'City == "{selected_city}"'), x='Year', y=selected_columns)
+else:
+    st.warning("Please select at least one column to plot.")

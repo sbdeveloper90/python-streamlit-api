@@ -10,8 +10,8 @@ base="dark"
 # textColor="#262730"                   # default FAFAFA
 # font="sans serif"
 
-# [client]
-# toolbarMode = "minimal"
+[client]
+toolbarMode = "minimal"
 
 # [mapbox]
 # # Configure Streamlit to use a custom Mapbox token for elements like st.pydeck_chart and st.map.
