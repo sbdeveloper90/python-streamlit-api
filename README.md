@@ -16,6 +16,7 @@ Python Streamlit example app for API calls and data visualization.
 - [LaTeX Supported Functions](https://katex.org/docs/supported.html)
 - [OpenMeteo API Docs - Weather Forecast](https://open-meteo.com/en/docs/)
 - [OpenMeteo API Docs - Geocoding](https://open-meteo.com/en/docs/geocoding-api)
+- [Altair Library Docs](https://altair-viz.github.io/user_guide/data.html#user-guide-data)
 
 ### Datasets
 - [Google Dataset Search](https://datasetsearch.research.google.com/)
