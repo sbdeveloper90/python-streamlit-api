@@ -4,3 +4,6 @@ urllib3
 pandas
 numpy
 altair
+openmeteo_requests
+requests_cache
+retry_requests
