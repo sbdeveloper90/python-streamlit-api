@@ -2,6 +2,7 @@ streamlit
 requests
 urllib3
 pandas
+openpyxl
 numpy
 altair
 openmeteo_requests
